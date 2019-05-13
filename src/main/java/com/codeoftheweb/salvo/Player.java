@@ -12,8 +12,8 @@ public class Player {
     private String userName;
 
     @OneToMany(mappedBy="player", fetch=FetchType.EAGER)
-    private
-    List<GamePlayer> gamePlayers;
+    private List<GamePlayer> gamePlayers;
+
 
     public Player () { }
 

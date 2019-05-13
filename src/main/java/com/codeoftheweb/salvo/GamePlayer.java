@@ -26,6 +26,9 @@ public class GamePlayer {
     @OneToMany(mappedBy = "gamePlayer", fetch = FetchType.EAGER)
     private List<Ship> ships;
 
+    @OneToMany(mappedBy = "gamePlayer")
+    private List<Salvo> salvoes;
+
     public GamePlayer() { }
 
     public GamePlayer(Player player, Game game) {
@@ -63,5 +66,13 @@ public class GamePlayer {
 
     public void setShips(List<Ship> ships) {
         this.ships = ships;
+    }
+
+    public List<Salvo> getSalvoes() {
+        return salvoes;
+    }
+
+    public void setSalvoes(List<Salvo> salvoes) {
+        this.salvoes = salvoes;
     }
 }

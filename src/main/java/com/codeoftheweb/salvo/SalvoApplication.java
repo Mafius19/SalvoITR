@@ -17,7 +17,11 @@ public class SalvoApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(PlayerRepository playerRepository, GameRepository gameRepository, GamePlayerRepository gamePlayerRepository, ShipRepository shipRepository) {
+	public CommandLineRunner initData(PlayerRepository playerRepository,
+									  GameRepository gameRepository,
+									  GamePlayerRepository gamePlayerRepository,
+									  ShipRepository shipRepository,
+									  SalvoRepository salvoRepository) {
 		return (args) -> {
 			// save a couple of players
 			Player p1 = new Player("j.bauer@ctu.gov");
@@ -89,6 +93,52 @@ public class SalvoApplication {
 			shipRepository.save(ship3);
 			shipRepository.save(ship4);
 			shipRepository.save(ship5);
+			// save a couple of salvoes
+			List<String> salvoLocations1 = new ArrayList<>();
+			{ 	salvoLocations1.add("B4");
+				salvoLocations1.add("B5");
+				salvoLocations1.add("F1"); }
+			List<String> salvoLocations2 = new ArrayList<>();
+			{ 	salvoLocations2.add("B4");
+				salvoLocations2.add("B5");
+				salvoLocations2.add("B6"); }
+			List<String> salvoLocations3 = new ArrayList<>();
+			{ 	salvoLocations3.add("F2");
+				salvoLocations3.add("D5"); }
+			List<String> salvoLocations4 = new ArrayList<>();
+			{ 	salvoLocations4.add("E1");
+				salvoLocations4.add("H3");
+				salvoLocations4.add("A2"); }
+			List<String> salvoLocations5 = new ArrayList<>();
+			{ 	salvoLocations5.add("A2");
+				salvoLocations5.add("A4");
+				salvoLocations5.add("G6"); }
+			List<String> salvoLocations6 = new ArrayList<>();
+			{ 	salvoLocations6.add("B5");
+				salvoLocations6.add("D5");
+				salvoLocations6.add("C7"); }
+			List<String> salvoLocations7 = new ArrayList<>();
+			{ 	salvoLocations7.add("A3");
+				salvoLocations7.add("H6"); }
+			List<String> salvoLocations8 = new ArrayList<>();
+			{ 	salvoLocations8.add("C5");
+				salvoLocations8.add("C6"); }
+			Salvo salvo1 = new Salvo(gp1, 1, salvoLocations1);
+			Salvo salvo2 = new Salvo(gp2, 1, salvoLocations2);
+			Salvo salvo3 = new Salvo(gp1, 2, salvoLocations3);
+			Salvo salvo4 = new Salvo(gp2, 2, salvoLocations4);
+			Salvo salvo5 = new Salvo(gp3, 1, salvoLocations5);
+			Salvo salvo6 = new Salvo(gp4, 1, salvoLocations6);
+			Salvo salvo7 = new Salvo(gp3, 2, salvoLocations7);
+			Salvo salvo8 = new Salvo(gp4, 2, salvoLocations8);
+			salvoRepository.save(salvo1);
+			salvoRepository.save(salvo2);
+			salvoRepository.save(salvo3);
+			salvoRepository.save(salvo4);
+			salvoRepository.save(salvo5);
+			salvoRepository.save(salvo6);
+			salvoRepository.save(salvo7);
+			salvoRepository.save(salvo8);
 		};
 	}
 	}

@@ -12,29 +12,34 @@ function getParameterByName(name) {
 function loadData() {
   $.get('/api/game_view/' + getParameterByName('gp'))
     .done(function (data) {
+      console.log(data);
       var playerInfo;
       if (data.gamePlayers[0].id == getParameterByName('gp'))
         playerInfo = [data.gamePlayers[0].player, data.gamePlayers[1].player];
       else
         playerInfo = [data.gamePlayers[1].player, data.gamePlayers[0].player];
 
-      $('#playerInfo').text(playerInfo[0].email + '(you) vs ' + playerInfo[1].email);
+      $('#playerInfo').text(playerInfo[0].userName + '(you) vs ' + playerInfo[1].userName);
 
       data.ships.forEach(function (shipPiece) {
-        shipPiece.locations.forEach(function (shipLocation) {
-          if(isHit(shipLocation,data.salvoes,playerInfo[0].id))
+        shipPiece.shipLocations.forEach(function (shipLocation) {
+          let turnHitted = isHit(shipLocation,data.salvoes,playerInfo[0].id)
+          if(turnHitted >0){
             $('#B_' + shipLocation).addClass('ship-piece-hited');
+            $('#B_' + shipLocation).text(turnHitted);
+          }
           else
             $('#B_' + shipLocation).addClass('ship-piece');
         });
       });
       data.salvoes.forEach(function (salvo) {
+        console.log(salvo);
         if (playerInfo[0].id === salvo.player) {
-          salvo.locations.forEach(function (location) {
+          salvo.salvoLocations.forEach(function (location) {
             $('#S_' + location).addClass('salvo');
           });
         } else {
-          salvo.locations.forEach(function (location) {
+          salvo.salvoLocations.forEach(function (location) {
             $('#_' + location).addClass('salvo');
           });
         }
@@ -46,12 +51,12 @@ function loadData() {
 }
 
 function isHit(shipLocation,salvoes,playerId) {
-  var hit = false;
+  var hit = 0;
   salvoes.forEach(function (salvo) {
     if(salvo.player != playerId)
-      salvo.locations.forEach(function (location) {
+      salvo.salvoLocations.forEach(function (location) {
         if(shipLocation === location)
-          hit = true;
+          hit = salvo.turn;
       });
   });
   return hit;
