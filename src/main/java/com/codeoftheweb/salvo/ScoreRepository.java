@@ -1,4 +1,6 @@
 package com.codeoftheweb.salvo;
 
-public interface ScoreRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ScoreRepository extends JpaRepository<Score, Long> {
 }
